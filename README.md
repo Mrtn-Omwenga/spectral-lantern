@@ -20,7 +20,6 @@
   - [Disabling commit checks](#disabling-commit-checks)
   - [Deploying to Vercel without any checks](#deploying-to-vercel-without-any-checks)
   - [Disabling Github Workflow](#disabling-github-workflow)
-- [Contributing to Scaffold-ETH 2](#contributing-to-scaffold-eth-2)
 
 ## Requirements
 
@@ -379,5 +378,17 @@ To disable it, **delete `.github` directory**
    (packages/nextjs/components/example-ui) you can have a look on how to create the awesome UI according to the contract if
     you want to)
 
-2. firstly, we need to interact with the Oracle contract
+2. ```
+   ///////////////////////////////////////////////////////////////////////
+   ///////Firstly, we need to interact with the Oracle contract///////////
+   ///////////////////////////////////////////////////////////////////////
+   ```
+   1. go to ```https://sepolia.etherscan.io/``` and search the type of token you want to collateral,
+      you will see the token address of it
+   2. put that token address to isAllowedToken function to see if it is allowed,
+      if it is allowed, perfect! you can continute, if not, go to ```https://docs.chain.link/data-feeds/price-feeds/addresses```
+      select the pricefeed address according to you type of token under sepolia testnet
+      put the type of token address and pricefeed address to addNewToken function, then you can add a new type of token
+      to collateral
+   3. when a type of token is allowed, you can get the token price by putting the type of token address to getPrice function
    
