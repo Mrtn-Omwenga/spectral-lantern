@@ -15,10 +15,7 @@
 - [Deploying your Smart Contracts to a Live Network](#deploying-your-smart-contracts-to-a-live-network)
 - [Deploying your NextJS App](#deploying-your-nextjs-app)
   - [Scaffold App Configuration](#scaffold-app-configuration)
-- [Interacting with your Smart Contracts: SE-2 Custom Hooks](#interacting-with-your-smart-contracts-se-2-custom-hooks)
-- [Disabling Type & Linting Error Checks](#disabling-type-and-linting-error-checks)
-  - [Disabling commit checks](#disabling-commit-checks)
-  - [Deploying to Vercel without any checks](#deploying-to-vercel-without-any-checks)
+- [Deploying to Vercel without any checks](#deploying-to-vercel-without-any-checks)
   
 
 ## Requirements
@@ -204,11 +201,10 @@ yarn vercel:yolo
 If your repo is connected to Vercel, you can set `NEXT_PUBLIC_IGNORE_BUILD_ERROR` to `true` in a [environment variable](https://vercel.com/docs/concepts/projects/environment-variables).
 
 
-```
-///////////////////////////////////////////////
-////how to interact with the frontend//////////
-///////////////////////////////////////////////
-```
+### how to interact with the frontend
+                              
+
+
 1. Forget about the YourContract smart when you see on the frontend, it has nothing to do with the lending protocol,
    it just shows how to create a awesome UI if you click the Example UI in the banner of the demo app
    (packages/nextjs/components/example-ui) you can have a look on how to create the awesome UI according to the contract if
