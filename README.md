@@ -16,6 +16,7 @@
 - [Deploying your NextJS App](#deploying-your-nextjs-app)
   - [Scaffold App Configuration](#scaffold-app-configuration)
 - [Deploying to Vercel without any checks](#deploying-to-vercel-without-any-checks)
+- [How to interact with the frontend](#how to interact with the frontend)
   
 
 ## Requirements
@@ -211,9 +212,9 @@ If your repo is connected to Vercel, you can set `NEXT_PUBLIC_IGNORE_BUILD_ERROR
     you want to)
 
 2. ```
-   ///////////////////////////////////////////////////////////////////////
-   ///////Firstly, we need to interact with the Oracle contract///////////
-   ///////////////////////////////////////////////////////////////////////
+   ///////////////////////////////////////////////////////////////////
+   ///First, we need to interact with the Oracle contract///////////
+   ///////////////////////////////////////////////////////////////////
    ```
    1. go to ```https://sepolia.etherscan.io/``` and search the type of token you want to collateral,
       you will see the token address of it
@@ -225,9 +226,9 @@ If your repo is connected to Vercel, you can set `NEXT_PUBLIC_IGNORE_BUILD_ERROR
    3. when a type of token is allowed, you can get the token price by putting the type of token address to getPrice function
 
 3. ```
-   /////////////////////////////////////////////////////////////////////////////////
-   ///////Secondly, we can  to interact with the LoanPositionNFT contract///////////
-   /////////////////////////////////////////////////////////////////////////////////
+   /////////////////////////////////////////////////////////////////////////
+   ///Second, we can  to interact with the LoanPositionNFT contract///////
+   /////////////////////////////////////////////////////////////////////////
    ```
    1. click the initialize function first
    2. use mint function to mint a NFT, it will return a token ID, first token ID will be 1
@@ -239,16 +240,16 @@ If your repo is connected to Vercel, you can set `NEXT_PUBLIC_IGNORE_BUILD_ERROR
    6. the Owner of LoanPositionNFT can call the burn function by passing the token ID to burn the NFT 
 
 4. ```
-   /////////////////////////////////////////////////////////////////////////////////////
-   /////////Thirdly, we can  to interact with the LoanPositionManager contract//////////
-   /////////////////////////////////////////////////////////////////////////////////////
+   ////////////////////////////////////////////////////////////////////////////
+   ////Third, we can  to interact with the LoanPositionManager contract//////
+   ////////////////////////////////////////////////////////////////////////////
    ```
   There is a bug that need to be fix
 
 5. ```
-   /////////////////////////////////////////////////////////////////////////
-   /////////Fourly, we can  to interact with the Treasury contract//////////
-   /////////////////////////////////////////////////////////////////////////
+   /////////////////////////////////////////////////////////////////////
+   ///Four, we can  to interact with the Treasury contract////////////
+   /////////////////////////////////////////////////////////////////////
    ```
    call the withdraw function to withdraw the collateral fee, perfect!!!
   
