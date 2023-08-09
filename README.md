@@ -387,8 +387,37 @@ To disable it, **delete `.github` directory**
       you will see the token address of it
    2. put that token address to isAllowedToken function to see if it is allowed,
       if it is allowed, perfect! you can continute, if not, go to ```https://docs.chain.link/data-feeds/price-feeds/addresses```
-      select the pricefeed address according to you type of token under sepolia testnet
+      select the pricefeed address according to you type of token under sepolia testnet,
       put the type of token address and pricefeed address to addNewToken function, then you can add a new type of token
       to collateral
    3. when a type of token is allowed, you can get the token price by putting the type of token address to getPrice function
+
+3. ```
+   /////////////////////////////////////////////////////////////////////////////////
+   ///////Secondly, we can  to interact with the LoanPositionNFT contract///////////
+   /////////////////////////////////////////////////////////////////////////////////
+   ```
+   1. click the initialize function first
+   2. use mint function to mint a NFT, it will return a token ID, first token ID will be 1
+   3. call the balanceOf function by the parameter of your metamask contract if it is minted sucessfully
+      you will see the result is 1
+   4. call the init function by passing the token ID and the loanamount you would like to loan(it must less
+      than you collateral ammount)
+   5. call the loanPositions function with the token ID, you can see the data of your NFT
+   6. the Owner of LoanPositionNFT can call the burn function by passing the token ID to burn the NFT 
+
+4. ```
+   /////////////////////////////////////////////////////////////////////////////////////
+   /////////Thirdly, we can  to interact with the LoanPositionManager contract//////////
+   /////////////////////////////////////////////////////////////////////////////////////
+   ```
+  There is a bug that need to be fix
+
+5. ```
+   /////////////////////////////////////////////////////////////////////////
+   /////////Fourly, we can  to interact with the Treasury contract//////////
+   /////////////////////////////////////////////////////////////////////////
+   ```
+   call the withdraw function to withdraw the collateral fee, perfect!!!
+  
    
