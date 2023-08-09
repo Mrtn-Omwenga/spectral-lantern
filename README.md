@@ -229,7 +229,7 @@ If your repo is connected to Vercel, you can set `NEXT_PUBLIC_IGNORE_BUILD_ERROR
 
 3. ```
    ////////////////////////////////////////////////////////////////////////
-   ///Second, we can  to interact with the LoanPositionNFT contract////////
+   ///Second, we need to interact with the LoanPositionNFT contract////////
    ////////////////////////////////////////////////////////////////////////
    ```
    1. click the initialize function first
@@ -243,14 +243,14 @@ If your repo is connected to Vercel, you can set `NEXT_PUBLIC_IGNORE_BUILD_ERROR
 
 4. ```
    ////////////////////////////////////////////////////////////////////////
-   ////Third, we can  to interact with the LoanPositionManager contract////
+   ////Third, we need to interact with the LoanPositionManager contract////
    ////////////////////////////////////////////////////////////////////////
    ```
    1. There is a bug that need to be fix
 
 5. ```
    ////////////////////////////////////////////////////////////////////////
-   ///Four, we can  to interact with the Treasury contract/////////////////
+   ///Four, we need to interact with the Treasury contract/////////////////
    ////////////////////////////////////////////////////////////////////////
    ```
    1. call the withdraw function to withdraw the collateral fee, perfect!!!
