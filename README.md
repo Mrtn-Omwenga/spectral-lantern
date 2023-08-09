@@ -11,7 +11,7 @@
 ## Contents
 
 - [Requirements](#requirements)
-- [Quickstart](#quickstart）
+- [Quickstart](#quickstart)
 - [Deploying your Smart Contracts to a Live Network](#deploying-your-smart-contracts-to-a-live-network)
 - [Deploying your NextJS App](#deploying-your-nextjs-app)
   - [Scaffold App Configuration](#scaffold-app-configuration)
@@ -209,9 +209,9 @@ If your repo is connected to Vercel, you can set `NEXT_PUBLIC_IGNORE_BUILD_ERROR
 
 
 1. Forget about the YourContract smart when you see on the frontend, it has nothing to do with the lending protocol,
-   it just shows how to create a awesome UI if you click the Example UI in the banner of the demo app
-   (packages/nextjs/components/example-ui) you can have a look on how to create the awesome UI according to the contract if
-    you want to)
+   it just shows how to create a awesome UI when you click the Example UI in the banner of the demo app
+   (packages/nextjs/components/example-ui) you can have a look at this path on how to create the awesome UI according to the 
+   contract if you want to
 
 2. ```
    ////////////////////////////////////////////////////////////////////////
@@ -234,11 +234,11 @@ If your repo is connected to Vercel, you can set `NEXT_PUBLIC_IGNORE_BUILD_ERROR
    ```
    1. click the initialize function first
    2. use mint function to mint a NFT, it will return a token ID, first token ID will be 1
-   3. call the balanceOf function by the parameter of your metamask contract if it is minted sucessfully
+   3. call the balanceOf function by the parameter of your metamask contract, if it is minted sucessfully
       you will see the result is 1
    4. call the init function by passing the token ID and the loanamount you would like to loan(it must less
       than you collateral ammount)
-   5. call the loanPositions function with the token ID, you can see the data of your NFT
+   5. call the loanPositions function with the token ID, you can see all the parameters of your NFT
    6. the Owner of LoanPositionNFT can call the burn function by passing the token ID to burn the NFT 
 
 4. ```
@@ -246,13 +246,13 @@ If your repo is connected to Vercel, you can set `NEXT_PUBLIC_IGNORE_BUILD_ERROR
    ////Third, we can  to interact with the LoanPositionManager contract////
    ////////////////////////////////////////////////////////////////////////
    ```
-  There is a bug that need to be fix
+   1. There is a bug that need to be fix
 
 5. ```
    ////////////////////////////////////////////////////////////////////////
    ///Four, we can  to interact with the Treasury contract/////////////////
    ////////////////////////////////////////////////////////////////////////
    ```
-   call the withdraw function to withdraw the collateral fee, perfect!!!
+   1. call the withdraw function to withdraw the collateral fee, perfect!!!
   
    
