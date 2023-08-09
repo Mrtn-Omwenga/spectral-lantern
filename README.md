@@ -37,7 +37,7 @@ To get started with Scaffold-ETH 2, follow the steps below:
 1. Clone this repo & install dependencies
 
 ```
-git clone https://github.com/scaffold-eth/scaffold-eth-2.git
+git clone https://github.com/Koryntia/simpleFrontendDemo__usingScaffoldETH.git
 cd scaffold-eth-2
 yarn install
 ```
@@ -59,9 +59,14 @@ yarn deploy
 This command deploys a test smart contract to the local network. The contract is located in `packages/hardhat/contracts` and can be modified to suit your needs. The `yarn deploy` command uses the deploy script located in `packages/hardhat/deploy` to deploy the contract to the network. You can also customize the deploy script.
 
 4. On a third terminal, start your NextJS app:
-
+// run 
+node -v 
+to make sure your node version is 18, if not run
+nvm install 18
+after your node version is 18, then run yarn start as the below says
 ```
 yarn start
+
 ```
 
 Visit your app on: `http://localhost:3000`. You can interact with your smart contract using the contract component or the example ui in the frontend. You can tweak the app config in `packages/nextjs/scaffold.config.ts`.
@@ -362,3 +367,14 @@ To disable it, **delete `.github` directory**
 We welcome contributions to Scaffold-ETH 2!
 
 Please see [CONTRIBUTING.MD](https://github.com/scaffold-eth/scaffold-eth-2/blob/main/CONTRIBUTING.md) for more information and guidelines for contributing to Scaffold-ETH 2.
+
+///////////////////////////////////////////////
+////how to interact with the frontend//////////
+///////////////////////////////////////////////
+1. Forget about the YourContract smart when you see on the frontend, it has nothing to do with the lending protocol
+   it just shows how to create a awesome UI if you click the Example UI is the banner of the demo app
+   (packages/nextjs/components/example-ui) you can have a look on how to create the awesome UI according to the contract if
+    you want to)
+
+2. firstly, we need to interact with the Oracle contract
+   
