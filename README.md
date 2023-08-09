@@ -16,6 +16,7 @@
 - [Deploying your NextJS App](#deploying-your-nextjs-app)
   - [Scaffold App Configuration](#scaffold-app-configuration)
 - [Deploying to Vercel without any checks](#deploying-to-vercel-without-any-checks)
+- [Get sepolia testnet token](#get-sepolia-testnet-token)
 - [How to interact with the frontend](#how-to-interact-with-the-frontend)
   
   
@@ -204,10 +205,14 @@ yarn vercel:yolo
 If your repo is connected to Vercel, you can set `NEXT_PUBLIC_IGNORE_BUILD_ERROR` to `true` in a [environment variable](https://vercel.com/docs/concepts/projects/environment-variables).
 
 
+### Get sepolia testnet token
+1. go to this website: ```https://sepoliafaucet.com/```(need to create a Alchemy account to get the token)
+2. paste the address you want to get the token and click send me ETH
+![image](https://github.com/Koryntia/simpleFrontendDemo__usingScaffoldETH/assets/100906121/0c13c686-0ca5-4053-af3f-b228653345b3)
+
+
 ### How to interact with the frontend
                               
-
-
 1. Forget about the YourContract smart when you see on the frontend, it has nothing to do with the lending protocol,
    it just shows how to create a awesome UI when you click the Example UI in the banner of the demo app
    (packages/nextjs/components/example-ui) you can have a look at this path on how to create the awesome UI according to the 
