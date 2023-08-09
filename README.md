@@ -11,12 +11,14 @@
 ## Contents
 
 - [Requirements](#requirements)
-- [Quickstart](#quickstart)
+- [Quickstart](#quickstart）
 - [Deploying your Smart Contracts to a Live Network](#deploying-your-smart-contracts-to-a-live-network)
 - [Deploying your NextJS App](#deploying-your-nextjs-app)
   - [Scaffold App Configuration](#scaffold-app-configuration)
 - [Deploying to Vercel without any checks](#deploying-to-vercel-without-any-checks)
-- [How to interact with the frontend](#how to interact with the frontend)
+- [How to interact with the frontend](#how-to-interact-with-the-frontend)
+  
+  
   
 
 ## Requirements
@@ -202,7 +204,7 @@ yarn vercel:yolo
 If your repo is connected to Vercel, you can set `NEXT_PUBLIC_IGNORE_BUILD_ERROR` to `true` in a [environment variable](https://vercel.com/docs/concepts/projects/environment-variables).
 
 
-### how to interact with the frontend
+### How to interact with the frontend
                               
 
 
