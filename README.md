@@ -60,9 +60,13 @@ This command deploys a test smart contract to the local network. The contract is
 
 4. On a third terminal, start your NextJS app:
 // run 
+```
 node -v 
+```
 to make sure your node version is 18, if not run
+```
 nvm install 18
+```
 after your node version is 18, then run yarn start as the below says
 ```
 yarn start
@@ -362,15 +366,14 @@ We have github workflow setup checkout `.github/workflows/lint.yaml` which runs 
 
 To disable it, **delete `.github` directory**
 
-## Contributing to Scaffold-ETH 2
 
-We welcome contributions to Scaffold-ETH 2!
 
-Please see [CONTRIBUTING.MD](https://github.com/scaffold-eth/scaffold-eth-2/blob/main/CONTRIBUTING.md) for more information and guidelines for contributing to Scaffold-ETH 2.
 
+```
 ///////////////////////////////////////////////
 ////how to interact with the frontend//////////
 ///////////////////////////////////////////////
+```
 1. Forget about the YourContract smart when you see on the frontend, it has nothing to do with the lending protocol
    it just shows how to create a awesome UI if you click the Example UI is the banner of the demo app
    (packages/nextjs/components/example-ui) you can have a look on how to create the awesome UI according to the contract if
