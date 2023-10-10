@@ -267,6 +267,7 @@ All the contracts have deployed to sepolia testnet
 
 1. LoanPositionManager contract
    address: 0x1C4a7cBca4F43e4C1C4f18C315Dcb009A7B034de
+
    abi:
 ```
    [
@@ -707,6 +708,7 @@ All the contracts have deployed to sepolia testnet
 ```
 
 2. LoanPositionNFT smart contract address: 0x8b20Db8B40Cc2277919Fa757c4BB7000Cd239C97
+
 abi:
 ```
 [
@@ -1325,6 +1327,7 @@ abi:
 ```
 
 3. Oracle smart contract address: 0x5C00E18CcAD6404f04958A03EfCbE071ADd05DfF
+
 abi:
 ```
 [
@@ -1484,6 +1487,7 @@ abi:
 ```
 
 4. Treasury smart contract address: 0x7f93150Fc5F4E6969D094f67C1d8B6e3FAa1a01A
+
    abi:
 ```
 [
