@@ -32,6 +32,7 @@ const deployLoanNFT: DeployFunction = async function (hre: HardhatRuntimeEnviron
   });
 
   // Get the deployed contract
+
   // const yourContract = await hre.ethers.getContract("YourContract", deployer);
 };
 
@@ -39,4 +40,5 @@ export default deployLoanNFT;
 
 // Tags are useful if you have multiple deploy files and only want to run one of them.
 // e.g. yarn deploy --tags YourContract
+
 deployLoanNFT.tags = ["LoanPositionNFT"];

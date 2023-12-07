@@ -40,6 +40,8 @@
   "dependencies": {
     "@chainlink/contracts": "^0.6.1",
     "@openzeppelin/contracts": "^4.9.3",
-    "@openzeppelin/contracts-upgradeable": "^4.9.3"
+    "@openzeppelin/contracts-upgradeable": "^4.9.3",
+    "net": "^1.0.2",
+    "tls": "^0.0.1"
   }
 }

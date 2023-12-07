@@ -11,6 +11,16 @@ contract Oracle is Ownable {
     uint256 private constant TIMEOUT = 3 hours;
     mapping(address => AggregatorV3Interface) priceFeeds;
 
+    address[] public allowedPriceFeed;
+
+    constructor(address[] memory _initialAllowedAddresses) {
+        // Initialize the allowed addresses during contract deployment
+        require(_initialAllowedAddresses.length > 0, "At least one address is required");
+        allowedPriceFeed = _initialAllowedAddresses;
+        
+    }
+
+
     /**
      * @notice returns the price of a token with some extra security checks
      * @param _tokenAddress : address of the token
@@ -37,7 +47,15 @@ contract Oracle is Ownable {
      * @param _tokenAddress : token interface
      * @param _priceFeed : aggregator interface address
      */
+
     function addNewToken(address _tokenAddress, address _priceFeed) public  {
+        require(
+        _priceFeed == allowedPriceFeed[0] ||
+        _priceFeed == allowedPriceFeed[1] ||
+        _priceFeed == allowedPriceFeed[2] ||
+        _priceFeed == allowedPriceFeed[3],
+        "Not an allowed price feed address"
+    );
         AggregatorV3Interface priceFeed = AggregatorV3Interface(_priceFeed);
         priceFeeds[_tokenAddress] = priceFeed;
     }

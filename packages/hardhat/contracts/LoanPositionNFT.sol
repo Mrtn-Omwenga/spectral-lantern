@@ -6,6 +6,7 @@ import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721Burnab
 
 contract LoanPositionNFT is ERC721BurnableUpgradeable, OwnableUpgradeable {
     struct LoanPosition {
+        
         address borrowerAddress;
         address lenderAddress;
         address loanToken;
