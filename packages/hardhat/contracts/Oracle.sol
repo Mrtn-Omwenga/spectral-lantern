@@ -14,12 +14,8 @@ contract Oracle is Ownable {
     address[] public allowedPriceFeed;
 
     constructor(address[] memory _initialAllowedAddresses) {
-        // Initialize the allowed addresses during contract deployment
-        require(_initialAllowedAddresses.length > 0, "At least one address is required");
-        allowedPriceFeed = _initialAllowedAddresses;
-        
+        allowedPriceFeed = _initialAllowedAddresses;      
     }
-
 
     /**
      * @notice returns the price of a token with some extra security checks
@@ -42,6 +38,33 @@ contract Oracle is Ownable {
         return (roundId, price, startedAt, updatedAt, answeredInRound);
     }
 
+
+    function addPriceFeedAddress(address _newAddress) external onlyOwner {
+        require(!_addressExists(_newAddress), "Price Feed is already allowed");
+        allowedPriceFeed.push(_newAddress);
+    }
+
+    function deletePriceFeedAddress(address _addressToDelete) external onlyOwner {
+        require(_addressExists(_addressToDelete), "Price Feed is not allowed");
+
+        for (uint256 i = 0; i < allowedPriceFeed.length; i++) {
+            if (allowedPriceFeed[i] == _addressToDelete) {
+                allowedPriceFeed[i] = allowedPriceFeed[allowedPriceFeed.length - 1];
+                allowedPriceFeed.pop();
+                break;
+            }
+        }
+    }
+
+    function _addressExists(address _address) internal view returns (bool) {
+        for (uint256 i = 0; i < allowedPriceFeed.length; i++) {
+            if (allowedPriceFeed[i] == _address) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * @notice Add a new available token
      * @param _tokenAddress : token interface
@@ -49,13 +72,19 @@ contract Oracle is Ownable {
      */
 
     function addNewToken(address _tokenAddress, address _priceFeed) public  {
-        require(
-        _priceFeed == allowedPriceFeed[0] ||
-        _priceFeed == allowedPriceFeed[1] ||
-        _priceFeed == allowedPriceFeed[2] ||
-        _priceFeed == allowedPriceFeed[3],
-        "Not an allowed price feed address"
-    );
+    if (allowedPriceFeed.length != 0)
+    {
+    bool found;
+    for (uint256 i = 0; i < allowedPriceFeed.length; i++) 
+    {
+            if (allowedPriceFeed[i] == _priceFeed) {
+                found = true;
+                break;
+            }
+    }
+    require(found, "Not an allowed price feed address");
+    }
+
         AggregatorV3Interface priceFeed = AggregatorV3Interface(_priceFeed);
         priceFeeds[_tokenAddress] = priceFeed;
     }
