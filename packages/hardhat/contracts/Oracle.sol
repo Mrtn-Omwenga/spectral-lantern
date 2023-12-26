@@ -11,10 +11,17 @@ contract Oracle is Ownable {
     uint256 private constant TIMEOUT = 3 hours;
     mapping(address => AggregatorV3Interface) priceFeeds;
 
-    address[] public allowedPriceFeed;
+    mapping(address => bool) allowedPriceFeed;
+    bool public isPriceFeedEmpty = true;
 
     constructor(address[] memory _initialAllowedAddresses) {
-        allowedPriceFeed = _initialAllowedAddresses;      
+        if(_initialAllowedAddresses.length > 0){
+            for(uint i = 0; i < _initialAllowedAddresses.length; i++)
+            {
+                allowedPriceFeed[_initialAllowedAddresses[i]] = true;
+            }
+            isPriceFeedEmpty = false; 
+        }     
     }
 
     /**
@@ -39,30 +46,25 @@ contract Oracle is Ownable {
     }
 
 
+    /**
+     * @notice adds new priceFeed address to allowedPriceFeed mapping
+     * @param _newAddress : address of the new PriceFeed address
+     * @dev throws error if called by non-owner or priceFeed is already in the allowed mapping
+     */
     function addPriceFeedAddress(address _newAddress) external onlyOwner {
-        require(!_addressExists(_newAddress), "Price Feed is already allowed");
-        allowedPriceFeed.push(_newAddress);
+        require(allowedPriceFeed[_newAddress] == false, "Price Feed is already allowed");
+        allowedPriceFeed[_newAddress] = true;
     }
 
+
+    /**
+     * @notice delete a priceFeed address from allowedPriceFeed mapping
+     * @param _addressToDelete : address of the new PriceFeed address
+     * @dev throws error if called by non-owner or priceFeed is not in the allowed mapping
+     */
     function deletePriceFeedAddress(address _addressToDelete) external onlyOwner {
-        require(_addressExists(_addressToDelete), "Price Feed is not allowed");
-
-        for (uint256 i = 0; i < allowedPriceFeed.length; i++) {
-            if (allowedPriceFeed[i] == _addressToDelete) {
-                allowedPriceFeed[i] = allowedPriceFeed[allowedPriceFeed.length - 1];
-                allowedPriceFeed.pop();
-                break;
-            }
-        }
-    }
-
-    function _addressExists(address _address) internal view returns (bool) {
-        for (uint256 i = 0; i < allowedPriceFeed.length; i++) {
-            if (allowedPriceFeed[i] == _address) {
-                return true;
-            }
-        }
-        return false;
+        require(allowedPriceFeed[_addressToDelete], "Price Feed is not allowed");
+        allowedPriceFeed[_addressToDelete] = false;
     }
 
     /**
@@ -72,17 +74,9 @@ contract Oracle is Ownable {
      */
 
     function addNewToken(address _tokenAddress, address _priceFeed) public  {
-    if (allowedPriceFeed.length != 0)
+    if (!isPriceFeedEmpty)
     {
-    bool found;
-    for (uint256 i = 0; i < allowedPriceFeed.length; i++) 
-    {
-            if (allowedPriceFeed[i] == _priceFeed) {
-                found = true;
-                break;
-            }
-    }
-    require(found, "Not an allowed price feed address");
+        require(allowedPriceFeed[_priceFeed], "Not an allowed price feed address");
     }
 
         AggregatorV3Interface priceFeed = AggregatorV3Interface(_priceFeed);
