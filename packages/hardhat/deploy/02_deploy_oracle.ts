@@ -21,10 +21,19 @@ const deployOracle: DeployFunction = async function (hre: HardhatRuntimeEnvironm
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
 
+  const allowedPriceFeed = [
+    "0x1b44F3514812d835EB1BDB0acB33d3fA3351Ee43",
+    "0x694AA1769357215DE4FAC081bf1f309aDC325306",
+    "0xc59E3633BAAC79493d908e63626716e204A45EdF",
+    "0xA2F78ab2355fe2f984D808B5CeE7FD0A93D5270E",
+  ];
+
   await deploy("Oracle", {
     from: deployer,
     // Contract constructor arguments
     // args: [deployer],
+    // Contract constructor arguments
+    args: [allowedPriceFeed],
     log: true,
     // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
     // automatically mining the contract deployment transaction. There is no effect on live networks.

@@ -11,6 +11,19 @@ contract Oracle is Ownable {
     uint256 private constant TIMEOUT = 3 hours;
     mapping(address => AggregatorV3Interface) priceFeeds;
 
+    mapping(address => bool) allowedPriceFeed;
+    bool public isPriceFeedEmpty = true;
+
+    constructor(address[] memory _initialAllowedAddresses) {
+        if(_initialAllowedAddresses.length > 0){
+            for(uint i = 0; i < _initialAllowedAddresses.length; i++)
+            {
+                allowedPriceFeed[_initialAllowedAddresses[i]] = true;
+            }
+            isPriceFeedEmpty = false; 
+        }     
+    }
+
     /**
      * @notice returns the price of a token with some extra security checks
      * @param _tokenAddress : address of the token
@@ -32,12 +45,40 @@ contract Oracle is Ownable {
         return (roundId, price, startedAt, updatedAt, answeredInRound);
     }
 
+
+    /**
+     * @notice adds new priceFeed address to allowedPriceFeed mapping
+     * @param _newAddress : address of the new PriceFeed address
+     * @dev throws error if called by non-owner or priceFeed is already in the allowed mapping
+     */
+    function addPriceFeedAddress(address _newAddress) external onlyOwner {
+        require(allowedPriceFeed[_newAddress] == false, "Price Feed is already allowed");
+        allowedPriceFeed[_newAddress] = true;
+    }
+
+
+    /**
+     * @notice delete a priceFeed address from allowedPriceFeed mapping
+     * @param _addressToDelete : address of the new PriceFeed address
+     * @dev throws error if called by non-owner or priceFeed is not in the allowed mapping
+     */
+    function deletePriceFeedAddress(address _addressToDelete) external onlyOwner {
+        require(allowedPriceFeed[_addressToDelete], "Price Feed is not allowed");
+        allowedPriceFeed[_addressToDelete] = false;
+    }
+
     /**
      * @notice Add a new available token
      * @param _tokenAddress : token interface
      * @param _priceFeed : aggregator interface address
      */
+
     function addNewToken(address _tokenAddress, address _priceFeed) public  {
+    if (!isPriceFeedEmpty)
+    {
+        require(allowedPriceFeed[_priceFeed], "Not an allowed price feed address");
+    }
+
         AggregatorV3Interface priceFeed = AggregatorV3Interface(_priceFeed);
         priceFeeds[_tokenAddress] = priceFeed;
     }

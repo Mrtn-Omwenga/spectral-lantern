@@ -10,6 +10,7 @@ interface IOracleContract {
     function isAllowedToken(address tokenAddress) external view returns (bool);
 }
 
+
 contract LoanPositionManager is Initializable {
     /// @notice Constants
     uint256 private constant LIQUIDATION_BONUS = 500; // the bonus the liquidator gets from the collateral (5%)
@@ -20,9 +21,10 @@ contract LoanPositionManager is Initializable {
     uint256 private constant PROTOCOL_FEE = 100; // fee protocol gets for every new position(1%)
     uint256 private constant INTEREST_PRECISION = 10000; //{LIQUIDATION_BONUS} and {PROTOCOL_FEE} precision
 
-    IOracleContract private oracle;
+    IOracleContract public oracle;
     LoanPositionNFT private nft;
     address private treasury;
+    address private owner;
 
     ///@notice Parameter errors
     error LoanPositionManager__LoanParams_LiquidationThreshold();
@@ -81,7 +83,15 @@ contract LoanPositionManager is Initializable {
         _;
     }
 
+    // Modifier to ensure that only the owner can call certain functions
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Not the owner");
+        _;
+    }
+
+    
     function initialize(address oracleAdress, address nftAddress, address treasuryAddress) external initializer {
+        owner = msg.sender;
         oracle = IOracleContract(oracleAdress);
         nft = LoanPositionNFT(nftAddress);
         treasury = treasuryAddress;
@@ -314,5 +324,11 @@ contract LoanPositionManager is Initializable {
     {
         uint256 collateralAdjustedThreshold = (collateralValueUsd * liquidationThreshold) / INTEREST_PRECISION;
         return (collateralAdjustedThreshold * PRECISION) / loanValueUsd;
+    }
+
+
+    // Function to update the Oracle Address, accessible only by the owner
+    function updateOracleAddress(address newOracleAddress) external onlyOwner {
+        oracle = IOracleContract(newOracleAddress);
     }
 }

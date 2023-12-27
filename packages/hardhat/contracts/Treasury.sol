@@ -12,5 +12,6 @@ contract Treasury is Ownable {
         uint256 balance = token.balanceOf(address(this));
         if (balance <= 0) revert TokenBalanceNotGreaterThanZero();
         token.transfer(owner(), balance);
+        
     }
 }
