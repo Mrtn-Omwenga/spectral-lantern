@@ -331,4 +331,30 @@ contract LoanPositionManager is Initializable {
     function updateOracleAddress(address newOracleAddress) external onlyOwner {
         oracle = IOracleContract(newOracleAddress);
     }
+
+    function mint(
+    address borrower,
+    address loanToken,
+    address collateralToken,
+    uint256 collateralAfterFees,
+    uint32 liquidationThreshold,
+    uint32 initialThreshold,
+    uint64 loanRepayDeadline,
+    uint64 loanRequestDeadline,
+    uint32 interestRate
+  ) external onlyOwner {
+    
+    nft.mint(
+      borrower,
+      loanToken,
+      collateralToken,
+      collateralAfterFees,
+      liquidationThreshold,
+      initialThreshold,
+      loanRepayDeadline,
+      loanRequestDeadline,
+      interestRate
+    );
+    
+  }
 }
