@@ -95,6 +95,8 @@ contract LoanPositionManager is Initializable {
         oracle = IOracleContract(oracleAdress);
         nft = LoanPositionNFT(nftAddress);
         treasury = treasuryAddress;
+
+        nft.initialize(address(this));
     }
     /**
      * @notice Create a new loan position

@@ -23,11 +23,13 @@ contract LoanPositionNFT is ERC721BurnableUpgradeable, OwnableUpgradeable {
     mapping(uint256 => LoanPosition) private _loanPositions;
     uint256 public nextTokenId;
 
-    function initialize() external initializer {
+    function initialize(address _owner) external initializer {
         nextTokenId = 1;
         __ERC721_init("Koryntia Loan Position NFT", "KLPN");
         __ERC721Burnable_init();
         __Ownable_init();
+
+        transferOwnership(_owner);
     }
 
     function init(uint256 tokenId, uint256 amount) external onlyOwner returns (bool) {
