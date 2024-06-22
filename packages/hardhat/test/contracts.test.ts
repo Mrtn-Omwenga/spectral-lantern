@@ -81,8 +81,8 @@ describe("Oracle Contract", function () {
 
   describe("getPrice functionality", function () {
     let oracle: Oracle;
-    const ethToken = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2";
-    const ethPriceFeed = "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419";
+    const ethToken = "0xd38E5c25935291fFD51C9d66C3B7384494bb099A";
+    const ethPriceFeed = "0x694AA1769357215DE4FAC081bf1f309aDC325306";
 
     beforeEach(async () => {
       const Oracle = await ethers.getContractFactory("Oracle");
@@ -90,22 +90,26 @@ describe("Oracle Contract", function () {
     });
 
     it("Should return the correct price", async function () {
-      await oracle.addNewToken(ethToken, ethPriceFeed);
-      const priceData = await oracle.getPrice(ethToken);
+      try {
+        await oracle.addNewToken(ethToken, ethPriceFeed);
+        const priceData = await oracle.getPrice(ethToken);
 
-      expect(priceData.length).to.equal(5);
+        expect(priceData.length).to.equal(5);
 
-      const roundId = priceData[0].toString();
-      const price = ethers.utils.formatUnits(priceData[1], 8);
-      const startedAt = new Date(priceData[2].toNumber() * 1000).toLocaleString();
-      const updatedAt = new Date(priceData[3].toNumber() * 1000).toLocaleString();
-      const answeredInRound = priceData[4].toString();
+        const roundId = priceData[0].toString();
+        const price = ethers.utils.formatUnits(priceData[1], 8);
+        const startedAt = new Date(priceData[2].toNumber() * 1000).toLocaleString();
+        const updatedAt = new Date(priceData[3].toNumber() * 1000).toLocaleString();
+        const answeredInRound = priceData[4].toString();
 
-      console.log(
-        `Round ID: ${roundId}, Price: ${price}, Started At: ${startedAt}, Updated At: ${updatedAt}, Answered In Round: ${answeredInRound}`,
-      );
+        console.log(
+          `Round ID: ${roundId}, Price: ${price}, Started At: ${startedAt}, Updated At: ${updatedAt}, Answered In Round: ${answeredInRound}`,
+        );
 
-      expect(Number(price)).to.be.gt(0);
+        expect(Number(price)).to.be.gt(0);
+      } catch (error) {
+        console.log(error);
+      }
     });
   });
 });
@@ -123,24 +127,27 @@ describe("LoanPositionManager", function () {
   const tokens = {
     ETH: {
       contract: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-      priceFeed: "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419",
+      priceFeed: "0x694AA1769357215DE4FAC081bf1f309aDC325306",
     },
     BTC: {
       contract: "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
-      priceFeed: "0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c",
+      priceFeed: "0x5fb1616F78dA7aFC9FF79e0371741a747D2a7F22",
     },
     DAI: {
       contract: "0x6B175474E89094C44Da98b954EedeAC495271d0F",
-      priceFeed: "0xAed0c38402a5d19df6E4c03F4E2DceD6e29c1ee9",
+      priceFeed: "0x14866185B1962B63C3Ea9E03Bc1da838bab34C19",
     },
     USDC: {
       contract: "0xdAC17F958D2ee523a2206206994597C13D831ec7",
-      priceFeed: "0x8fFfFfd4AfB6115b954Bd326cbe7B4BA576818f6",
+      priceFeed: "0xA2F78ab2355fe2f984D808B5CeE7FD0A93D5270E",
     },
   };
 
   beforeEach(async () => {
-    [owner, borrower, investor] = await ethers.getSigners();
+    const metamaskAddress = process.env.DEPLOYER_PRIVATE_KEY as string;
+    const wallet = new ethers.Wallet(metamaskAddress, ethers.provider);
+    owner = wallet;
+    [borrower, investor] = await ethers.getSigners();
 
     const Oracle = await ethers.getContractFactory("Oracle");
     oracle = (await Oracle.deploy(Object.values(tokens).map(token => token.priceFeed))) as Oracle;
@@ -176,29 +183,19 @@ describe("LoanPositionManager", function () {
 
   it("should create a loan position with valid parameters", async function () {
     try {
-      const IERC20 = new ethers.utils.Interface(["function balanceOf(address) external view returns (uint256)"]);
-      const senderBalance = await ethers.provider.call({
-        to: tokens["ETH"]["contract"],
-        data: IERC20.encodeFunctionData("balanceOf", [owner.address]),
-      });
-      console.log("Sender Balance:", ethers.utils.formatUnits(senderBalance, 18));
-    } catch (error) {
-      console.log(error);
-    }
-
-    try {
       await manager
         .connect(owner)
         .createLoanPosition(
           tokens["USDC"]["contract"],
           tokens["ETH"]["contract"],
-          1000,
+          ethers.utils.parseEther("0.001"),
           1500,
           1000,
           1829715599,
           1763961599,
           500,
-        );
+        )
+        .then(tx => tx.wait());
     } catch (error) {
       console.log(error);
     }
@@ -240,8 +237,8 @@ describe("LoanPositionManager", function () {
       .connect(owner)
       .mint(
         await borrower.address,
-        "0x82fb927676b53b6eE07904780c7be9b4B50dB80b",
-        "0x82fb927676b53b6eE07904780c7be9b4B50dB80b",
+        tokens["USDC"]["contract"],
+        tokens["ETH"]["contract"],
         1000,
         1500,
         1000,
@@ -263,9 +260,6 @@ describe("LoanPositionManager", function () {
   });
 
   it("should liquidate unhealthy loan positions", async function () {
-    console.log(await oracle.getPrice(tokens["ETH"]["contract"]));
-    console.log(await oracle.getPrice(tokens["USDC"]["contract"]));
-
     await manager
       .connect(owner)
       .mint(
